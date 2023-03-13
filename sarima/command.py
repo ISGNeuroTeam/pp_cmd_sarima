@@ -17,7 +17,7 @@ class SarimaCommand(BaseCommand):
             Keyword("sI", required=True, otl_type=OTLType.INTEGER),
             Keyword("sMA", required=True, otl_type=OTLType.INTEGER),
             Keyword("s", required=True, otl_type=OTLType.INTEGER),
-            Keyword("forecast_date", required=True, otl_type=OTLType.TEXT),
+            Keyword("forecast_steps", required=True, otl_type=OTLType.INTEGER),
         ],
     )
     use_timewindow = False  # Does not require time window arguments
@@ -33,20 +33,9 @@ class SarimaCommand(BaseCommand):
         si = self.get_arg("sI").value
         sma = self.get_arg("sMA").value
         s = self.get_arg("s").value
-        forecast_date_tuple = (int(x) for x in self.get_arg("s").value.split(',') if len(x) > 0)
-        forecast_date = datetime(*forecast_date_tuple)
+        forecast_steps = self.get_arg("forecast_steps").value
 
         # Make your logic here
-        result = sarima(ar, i, ma, sar, si, sma, s, forecast_date)
-
-        # Add description of what going on for log progress
-        self.log_progress('First part is complete.', stage=1, total_stages=2)
-        #
-        self.log_progress('Last transformation is complete', stage=2, total_stages=2)
-
-        # Use ordinary logger if you need
-
-        self.logger.debug(f'Command sarima get first positional argument = {first_positional_string_argument}')
-        self.logger.debug(f'Command sarima get keyword argument = {kwarg_int_argument}')
+        result = sarima(df, ar, i, ma, sar, si, sma, s, forecast_steps)
 
         return result
