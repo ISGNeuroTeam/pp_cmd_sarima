@@ -2,7 +2,7 @@
 Postprocessing command "sarima"
 
 Usage example:
-`... | sarima`
+`... | sarima AR=0 I=1 MA=0 sAR=1 sI=0 sMA=1 s=12 forecast_steps=20`
 
 ## Getting started
 ###  Prerequisites
