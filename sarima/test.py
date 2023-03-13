@@ -21,7 +21,9 @@ def main():
     start_date = datetime(1996, 1, 1)
     end_date = datetime(2000, 1, 1)
     lim_catfish_sales = catfish_sales[start_date:end_date]
-    catfish_sales_df = pd.DataFrame(catfish_sales)  # here we create a test dataframe
+
+    catfish_sales_test = pd.read_csv('../catfish1.csv')
+    catfish_sales_df = pd.DataFrame(catfish_sales_test)  # here we create a test dataframe
 
     train_end = datetime(1999, 7, 1)
     test_end = datetime(2000, 1, 1)
