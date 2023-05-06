@@ -11,7 +11,8 @@ def sarima(df: pd.DataFrame, p: int, d: int, q: int, sp: int, sd: int, sq: int, 
     model = SARIMAX(df, order=order, seasonal_order=seasonal_order)
     model_fit = model.fit()
     predictions = model_fit.get_forecast(steps=steps)
-    predictions = predictions.predicted_mean.to_frame('mean').rename_axis('time').reset_index()
+    predictions = predictions.predicted_mean.to_frame('sarima_prediction').rename_axis('time').reset_index()
     predictions.set_index('time')
+    predictions['time'] = predictions['time'].view('int64') // 1000000000
 
     return predictions
